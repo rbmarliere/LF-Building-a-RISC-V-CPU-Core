@@ -1,10 +1,7 @@
 \m4_TLV_version 1d: tl-x.org
 \SV
-   // This code can be found in: https://github.com/stevehoover/LF-Building-a-RISC-V-CPU-Core/risc-v_shell.tlv
-   
+   // This code can be found in: https://github.com/stevehoover/LF-Building-a-RISC-V-CPU-Core/risc-v_shell.tlv  
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/LF-Building-a-RISC-V-CPU-Core/main/lib/risc-v_shell_lib.tlv'])
-
-
 
    //---------------------------------------------------------------------------------
    // /====================\
@@ -32,20 +29,14 @@
    m4_asm_end()
    m4_define(['M4_MAX_CYC'], 50)
    //---------------------------------------------------------------------------------
-
-
-
 \SV
    m4_makerchip_module   // (Expanded in Nav-TLV pane.)
    /* verilator lint_on WIDTH */
 \TLV
-   
    $reset = *reset;
    
-   
-   // YOUR CODE HERE
-   // ...
-   
+   $pc[31:0] = >>1$next_pc;
+   $next_pc[31:0] = $reset ? 0 : $pc + 4;
    
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
