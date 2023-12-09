@@ -81,6 +81,14 @@
      $is_addi ? $src1_value + $imm :
      $is_add ? $src1_value + $src2_value : 32'b0;
    
+   $taken_br =
+     $is_beq ? $src1_value == $src2_value :
+     $is_bne ? $src1_value != $src2_value :
+     $is_blt ? $src1_value < $src2_value ^ $src1_value[31] != $src2_value[31] :
+     $is_bge ? $src1_value >= $src2_value ^ $src1_value[31] != $src2_value[31] :
+     $is_bltu ? $src1_value < $src2_value :
+     $is_bgeu ? $src1_value >= $src2_value : 1'b0;
+   
    `BOGUS_USE($imm $rs2 $rs1 $funct3 $rd $opcode $imm_valid $rs2_valid $rs1_valid $funct3_valid $rd_valid $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add);
    
    // Assert these to end simulation (before Makerchip cycle limit).
