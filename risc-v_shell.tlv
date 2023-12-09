@@ -96,7 +96,8 @@
    `BOGUS_USE($imm $rs2 $rs1 $funct3 $rd $opcode $imm_valid $rs2_valid $rs1_valid $funct3_valid $rd_valid $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add);
    
    // Assert these to end simulation (before Makerchip cycle limit).
-   *passed = 1'b0;
+   //*passed = 1'b0;
+   m4+tb()
    *failed = *cyc_cnt > M4_MAX_CYC;
    
    m4+rf(32, 32, $reset, $rd_valid, $rd, $result, $rs1_valid, $rs1[4:0], $src1_value, $rs2_valid, $rs2[4:0], $src2_value)
