@@ -13,7 +13,8 @@
    $pc[31:0] = >>1$next_pc;
    $next_pc[31:0] =
      $reset ? 0 :
-     $taken_br ? $br_tgt_pc : $pc + 4;
+     $taken_br || $is_jal ? $br_tgt_pc :
+     $is_jalr ? $jalr_tgt_pc : $pc + 4;
    
    `READONLY_MEM($pc, $$instr[31:0]);
    
@@ -118,6 +119,8 @@
      $is_bgeu ? $src1_value >= $src2_value : 1'b0;
    
    $br_tgt_pc[31:0] = $pc + $imm;
+   $jalr_tgt_pc[31:0] = $src1_value + $imm;
+   
    
    `BOGUS_USE($imm $rs2 $rs1 $funct3 $rd $opcode $imm_valid $rs2_valid $rs1_valid $funct3_valid $rd_valid $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add);
    
