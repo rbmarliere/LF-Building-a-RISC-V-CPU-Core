@@ -121,6 +121,7 @@
    $br_tgt_pc[31:0] = $pc + $imm;
    $jalr_tgt_pc[31:0] = $src1_value + $imm;
    
+   $rf_data = $is_load ? $ld_data : $result;
    
    `BOGUS_USE($imm $rs2 $rs1 $funct3 $rd $opcode $imm_valid $rs2_valid $rs1_valid $funct3_valid $rd_valid $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add);
    
@@ -129,7 +130,7 @@
    m4+tb()
    *failed = *cyc_cnt > M4_MAX_CYC;
    
-   m4+rf(32, 32, $reset, $rd_valid, $rd, $result, $rs1_valid, $rs1[4:0], $src1_value, $rs2_valid, $rs2[4:0], $src2_value)
+   m4+rf(32, 32, $reset, $rd_valid, $rd, $rf_data, $rs1_valid, $rs1[4:0], $src1_value, $rs2_valid, $rs2[4:0], $src2_value)
    m4+dmem(32, 32, $reset, $rs1, $is_s_instr, $src2_value, $is_load, $ld_data)
    m4+cpu_viz()
 \SV
